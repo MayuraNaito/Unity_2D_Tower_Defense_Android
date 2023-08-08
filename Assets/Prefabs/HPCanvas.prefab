@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 667247675510101537}
   - component: {fileID: 7534232203274112600}
   - component: {fileID: 6917091027810749406}
+  - component: {fileID: 3748143979382681529}
   m_Layer: 5
   m_Name: HPCanvas
   m_TagString: Untagged
@@ -110,7 +111,7 @@ RectTransform:
   m_Children:
   - {fileID: 2364789011989213151}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6917091027810749406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +181,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3748143979382681529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5687453659243774563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30451273aefb94aaa8b0f880a1cb2890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBarImage: {fileID: 7401312917956551214}
 --- !u!1 &7782331702448267529
 GameObject:
   m_ObjectHideFlags: 0
