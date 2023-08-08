@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // 敵のHP
+    public EnemyHP enemyHP;
+
+    // Start
     void Start()
     {
-        
+        // 敵のHP格納
+        enemyHP = GetComponent<EnemyHP>();
     }
 
-    // Update is called once per frame
+    // Update
     void Update()
     {
         
