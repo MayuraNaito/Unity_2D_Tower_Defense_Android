@@ -172,7 +172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!58 &231580519
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
   bulletSpawnPos: {fileID: 19848513}
   damage: 2
   fireBullet: {fileID: 3808303863253344674, guid: 85262b1d80ed64e918a8c863176bca22, type: 3}
-  firingInterval: 2
+  firingInterval: 0.8
 --- !u!1 &232192539
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,13 +509,14 @@ GameObject:
   - component: {fileID: 1238762122}
   - component: {fileID: 1238762124}
   - component: {fileID: 1238762123}
+  - component: {fileID: 1238762125}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &1238762118
 Rigidbody2D:
   serializedVersion: 4
@@ -626,8 +627,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -730921985
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -1565577661, guid: a3cf9b637a2624bf2a6c678d4b70f372, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -704,7 +705,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77c11446a83440aa819219e5ca57b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHP: {fileID: 0}
+  setMoveSpeed: 3
+--- !u!114 &1238762125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238762117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b23c1ada9fa34ebcb48960d7dcf6cc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1579720982
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,10 +900,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: -1.22, y: 0, z: 0}
-  - {x: 1.22, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: -1.1, z: 0}
+  - {x: 1.5937277, y: -1.7035496, z: 0}
+  - {x: 1.2008592, y: 1.0910374, z: 0}
+  - {x: -1.1484601, y: 2.488331, z: 0}
+  - {x: -1.071896, y: -2.4781528, z: 0}
 --- !u!4 &1684986081
 Transform:
   m_ObjectHideFlags: 0

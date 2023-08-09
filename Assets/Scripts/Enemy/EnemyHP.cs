@@ -16,11 +16,22 @@ public class EnemyHP : MonoBehaviour
     [SerializeField] private Transform barPos;
     // HPゲージ画像
     private Image hpBarImage;
+    // 被弾した時用デリゲート(デリゲート：関数を入れられる変数)
+    public static Action<Enemy> OnEnemyHit;
+    // 敵を格納
+    private Enemy enemy;
+    // アニメーションを格納
+    private EnemyAnimations enemyAnimations;
+
 
     // Start
     void Start()
     {
+        // HPバーの生成用関数の呼び出し
         CreateHealthBar();
+        // 敵、アニメーションのコンポーネント格納
+        enemy = GetComponent<Enemy>();
+        enemyAnimations = GetComponent<EnemyAnimations>();
     }
 
     // Update
@@ -58,6 +69,10 @@ public class EnemyHP : MonoBehaviour
     public void ReduceHP(float damage)
     {
         currentHP -= damage;
+
+        // 被弾アニメーション(デリゲートの呼び出し)
+        OnEnemyHit?.Invoke(enemy);
+
         // HPが0かどうか判定する関数の呼び出し
         DeathCheck();
     }
@@ -70,9 +85,28 @@ public class EnemyHP : MonoBehaviour
         {
             // マイナスの可能性があるのでHPを0にする
             currentHP = 0;
-            // 非表示にする
-            gameObject.SetActive(false);
+
+            // 被弾アニメーションを再生させてから死亡
+            Invoke("Die", enemyAnimations.StopTime());
         }
+    }
+
+    // 死亡時の処理用関数
+    private void Die()
+    {
+        ResetHealth();
+    }
+
+    // HPをリセットする関数(敵オブジェクトをプールさせる用)
+    private void ResetHealth()
+    {
+        // HPをMAXにする
+        currentHP = hp;
+        // HPゲージをMAXにする
+        hpBarImage.fillAmount = 1f;
+
+        // オブジェクト非表示
+        gameObject.SetActive(false);
     }
 
 }
