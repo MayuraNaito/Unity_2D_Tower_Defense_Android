@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour
     }
 
     // スピードを格納する関数
-    private void SetMoveSpeed()
+    public void SetMoveSpeed()
     {
         moveSpeed = setMoveSpeed;
     }
@@ -87,6 +87,12 @@ public class Enemy : MonoBehaviour
             transform.position,
             CurrentPointPosition,
             moveSpeed * Time.deltaTime);
+    }
+
+    // 移動スピードを0にする関数
+    public void StopMovement()
+    {
+        moveSpeed = 0f;
     }
 
 }
