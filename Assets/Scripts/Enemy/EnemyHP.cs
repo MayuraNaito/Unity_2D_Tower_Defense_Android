@@ -23,6 +23,9 @@ public class EnemyHP : MonoBehaviour
     // アニメーションを格納
     private EnemyAnimations enemyAnimations;
 
+    // 死んだ時の処理
+    public static Action OnEnemyDead;
+
 
     // Start
     void Start()
@@ -47,6 +50,7 @@ public class EnemyHP : MonoBehaviour
         hpBarImage.fillAmount = Mathf.Lerp(hpBarImage.fillAmount,
             currentHP / hp, Time.deltaTime * 10f);
     }
+
 
     // HPバーの生成用関数
     private void CreateHealthBar()
@@ -94,11 +98,16 @@ public class EnemyHP : MonoBehaviour
     // 死亡時の処理用関数
     private void Die()
     {
+        // HPをリセットする関数の呼び出し
         ResetHealth();
+        // アクションを呼ぶ
+        OnEnemyDead?.Invoke();
+        // プールに返す関数の呼び出し
+        ObjectPooler.ReturnToPool(gameObject);
     }
 
     // HPをリセットする関数(敵オブジェクトをプールさせる用)
-    private void ResetHealth()
+    public void ResetHealth()
     {
         // HPをMAXにする
         currentHP = hp;
