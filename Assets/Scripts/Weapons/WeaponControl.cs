@@ -23,19 +23,21 @@ public class WeaponControl : MonoBehaviour
     private float nextFireTime;
     // ディレイ
     [NonSerialized] public float delay;
+    // 弾のプール用
+    private ObjectPooler pooler;
 
 
     // Start
     private void Start()
     {
-        // 武器を変数に格納
+        // 武器、プールしてる弾を変数に格納
         weapon = GetComponent<Weapon>();
+        pooler = GetComponent<ObjectPooler>();
         // 設定用変数の数値を格納
         bulletDamage = damage;
         delay = firingInterval;
         // 弾をセットする関数の呼び出し
         ReloadBullet();
-
     }
 
     // Update
@@ -87,7 +89,8 @@ public class WeaponControl : MonoBehaviour
     private void ReloadBullet()
     {
         // 弾を生成してポジションと親を設定(Instantiate:プレハブを指定)
-        GameObject newBullet = Instantiate(fireBullet);
+        //GameObject newBullet = Instantiate(fireBullet);
+        GameObject newBullet = pooler.GetObjectFromPool();
         newBullet.transform.localPosition = bulletSpawnPos.position;
         newBullet.transform.SetParent(bulletSpawnPos);
 
@@ -95,6 +98,9 @@ public class WeaponControl : MonoBehaviour
         currentBullet = newBullet.GetComponent<Bullet>();
         // 初期設定用関数の呼び出し
         currentBullet.BulletInitializetion(this, bulletDamage);
+
+        // オブジェクト表示
+        newBullet.SetActive(true);
     }
 
     // 装填中の弾の設定を消す関数
