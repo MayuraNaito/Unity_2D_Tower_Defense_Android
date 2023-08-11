@@ -61,7 +61,9 @@ public class Bullet : MonoBehaviour
             // 弾の設定を初期化
             bulletControl.ResetBullet();
             // 当たった弾は削除
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            // プールに戻す関数の呼び出し
+            ObjectPooler.ReturnToPool(gameObject);
         }
     }
 
@@ -77,6 +79,18 @@ public class Bullet : MonoBehaviour
         // 引数を変数に格納
         bulletControl = weaponControl;
         this.damage = damage;
+
+        // 初期化
+        ResetBullet();
+    }
+
+    // 初期化用関数
+    private void ResetBullet()
+    {
+        // 初期化
+        enemyTarget = null;
+        // 回転初期化
+        transform.localRotation = Quaternion.identity;
     }
 
 }
