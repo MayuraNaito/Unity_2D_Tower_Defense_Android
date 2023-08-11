@@ -1566,6 +1566,7 @@ GameObject:
   - component: {fileID: 1684986081}
   - component: {fileID: 1684986080}
   - component: {fileID: 1684986082}
+  - component: {fileID: 1684986083}
   m_Layer: 0
   m_Name: WayPointAndSpawner
   m_TagString: Untagged
@@ -1598,7 +1599,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684986079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.36, y: -5.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1619,6 +1620,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolObject: {fileID: 2562851218458875728, guid: 9aa46b47907904e2daa4c9952d9070ca, type: 3}
   poolSize: 10
+--- !u!114 &1684986083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684986079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e559d98b5e6040ff81a7d2f584d219c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnMode: 0
+  minRandomDelay: 0.5
+  maxRandomDelay: 1.5
+  constantSpawnTime: 1
+  enemyCount: 10
 --- !u!1001 &4074038977348802260
 PrefabInstance:
   m_ObjectHideFlags: 0
