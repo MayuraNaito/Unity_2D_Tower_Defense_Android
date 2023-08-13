@@ -116,7 +116,7 @@ public class Enemy : MonoBehaviour
     }
 
     // 目指すべきポイントをリセットする関数
-    public void ResetWayPoint()
+    public void ResetMovePoint()
     {
         currentMovePointIndex = 0;
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,14 @@ public class Spawner : MonoBehaviour
     private ObjectPooler pooler;
     // MovePoint格納用(敵に渡すためにここで格納)
     private MovePoint movePoint;
+    // 生成できる敵の数(数を減らしていく)
+    private int enemiesRemaining;
+    // ウェーブの遅延
+    [SerializeField] private float wavesDelayTime = 1f;
+
+
+    // ウェーブ達成時に呼ばれるアクション
+    public static Action OnWaveCompleted;
 
 
     // Start
@@ -37,6 +46,9 @@ public class Spawner : MonoBehaviour
         // 敵のプール、ポイントを格納
         pooler = GetComponent<ObjectPooler>();
         movePoint = GetComponent<MovePoint>();
+
+        // 生成できる数を設定
+        enemiesRemaining = enemyCount;
     }
 
     // Update
@@ -93,11 +105,63 @@ public class Spawner : MonoBehaviour
         Enemy enemy = newInstance.GetComponent<Enemy>();
         enemy.movePoint = movePoint;
 
+        // リセット
+        enemy.ResetMovePoint();
+
         // 生成位置をこのオブジェクトの位置に設定
         enemy.transform.position = transform.position;
 
         // スピードの設定
         enemy.SetMoveSpeed();
+    }
+
+    // ゴール、デスで消えたエネミーを記録する関数
+    private void RecordEnemy()
+    {
+        // このウェーブで生存している敵の数を減らす
+        enemiesRemaining--;
+        // このウェーブの完了条件を確認する
+        CurrentWaveCheck();
+    }
+
+    // ウェーブの完了条件を確認して、イベントとコルーチンを呼ぶ関数
+    private void CurrentWaveCheck()
+    {
+        // 生成できる敵の数
+        if (enemiesRemaining <= 0)
+        {
+            // ウェーブ完了時の処理を呼び出す
+            OnWaveCompleted?.Invoke();
+            // 次のウェーブ準備
+            StartCoroutine(NextWave());
+        }
+    }
+
+    // 次のウェーブに向けて数値関係をリセットするコルーチン
+    private IEnumerator NextWave()
+    {
+        // 数値分待機する
+        yield return new WaitForSeconds(wavesDelayTime);
+        // 生成する敵の数をリセット
+        enemiesRemaining = enemyCount;
+        // 次のスポーンまでの時間
+        spawnTimer = 0f;
+        // 生成した数
+        spawned = 0;
+    }
+
+    private void OnEnable()
+    {
+        // イベントに関数を登録
+        Enemy.OnReachedGoal += RecordEnemy;
+        EnemyHP.OnEnemyDead += RecordEnemy;
+    }
+
+    private void OnDisable()
+    {
+        // イベントに関数を削除
+        Enemy.OnReachedGoal -= RecordEnemy;
+        EnemyHP.OnEnemyDead -= RecordEnemy;
     }
 
 }
