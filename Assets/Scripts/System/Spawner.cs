@@ -150,6 +150,7 @@ public class Spawner : MonoBehaviour
         spawned = 0;
     }
 
+    // オブジェクトが表示された時に呼ばれる
     private void OnEnable()
     {
         // イベントに関数を登録
@@ -157,6 +158,7 @@ public class Spawner : MonoBehaviour
         EnemyHP.OnEnemyDead += RecordEnemy;
     }
 
+    // オブジェクトが非表示になった時に呼ばれる
     private void OnDisable()
     {
         // イベントに関数を削除
