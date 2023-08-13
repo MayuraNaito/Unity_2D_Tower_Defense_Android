@@ -18,6 +18,10 @@ public class Enemy : MonoBehaviour
     public Vector3 CurrentPointPosition =>
         movePoint.GetMovePointPosition(currentMovePointIndex);
 
+    // ゴールに到着した時のイベント
+    public static Action OnReachedGoal;
+
+
     // Start
     void Start()
     {
@@ -29,7 +33,7 @@ public class Enemy : MonoBehaviour
         // 移動スピードの設定
         SetMoveSpeed();
         // 指定のコンポーネントがついているオブジェクトを探して格納(FindObjectOfTypeは処理が重い)
-        movePoint = FindObjectOfType<MovePoint>().GetComponent<MovePoint>();
+        //movePoint = FindObjectOfType<MovePoint>().GetComponent<MovePoint>();
     }
 
     // Update
@@ -54,6 +58,11 @@ public class Enemy : MonoBehaviour
         if (currentMovePointIndex < movePoint.points.Length - 1)
         {
             currentMovePointIndex++;
+        }
+        else
+        {
+            // 最後ならプールに戻す
+            ReachedGoal();
         }
     }
 
@@ -93,6 +102,23 @@ public class Enemy : MonoBehaviour
     public void StopMovement()
     {
         moveSpeed = 0f;
+    }
+
+    // プールにオブジェクトを返す関数
+    private void ReachedGoal()
+    {
+        // アクションを呼ぶ
+        OnReachedGoal?.Invoke();
+        // 体力の初期化関数の呼び出し
+        enemyHP.ResetHealth();
+        // プールにオブジェクトを戻す
+        ObjectPooler.ReturnToPool(gameObject);
+    }
+
+    // 目指すべきポイントをリセットする関数
+    public void ResetMovePoint()
+    {
+        currentMovePointIndex = 0;
     }
 
 }
